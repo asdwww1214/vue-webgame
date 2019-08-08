@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>구구단</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="root"> <!-- v-들 사용하는곳 -->
+        <div>{{first}}곱하기 {{second}}는?</div> <!-- 데이터를 렌더링(화면에 표시)할 수 있다.-->
+        <form v-on:submit="onSubmitForm"> <!-- 여기서는 입력을 누를때마다 form이 새로고침해줌 --> <!-- 이벤트 리스너 -->
+            <input type="number" ref="answer" v-model="value"> <!-- 양방향 바인딩. 내가  input을 치면 데이터도 자동으로 바뀐다. --> <!-- ref는 포커스 제어.
+             input에 이름을 붙여줌. 직접 태그에 접근. 단 ref를 남용하는것은 좋지않음, data로 해결하지 못하고 직접 태그에 접근 해야 할때 사용.-->
+            <button type="submit">입력</button>
+        </form>
+        <div id="result">{{result}}</div>
+</div>
+<script> <!-- el, data, methods-->
+    const app = new Vue({
+        el: '#root',
+        data: { <!-- 프로그램에서 바뀌는 부분이 data값이 됨 -->
+            first: Math.ceil(Math.random() * 9), <!-- 문제에서 첫번째로 바뀌는 값. 1~9까지 랜덤하게 나옴.-->
+            second: Math.ceil(Math.random() * 9),  <!-- 문제에서 두번째로 바뀌는 값-->
+            value: '', <!-- 우리가 정답란에 치는 값 -->
+            result: '', <!-- 정답, 오답-->
+        },
+        methods: {
+            onSubmitForm(e) {
+            e.preventDefault(); <!-- Vue는 싱글페이지 웹이기 떄문에 새로고침을 막음 -->
+                console.log(parseInt(this.value));
+                if(this.first * this.second === parseInt(this.value)){
+                this.result ='정답';
+                this.first = Math.ceil(Math.random() * 9);
+                this.second = Math.ceil(Math.random() * 9);
+                this.value = '';
+                this.$refs.answer.focus(); <!-- ref로 input태그를 선택하고 focus함수를 사용 -->
+            }else {
+                this.result ='오답';
+                this.value = '';
+                this.$refs.answer.focus();
+            }
+            },
+        },
+    });
+</script>
+</body>
+</html>
+<!-- 다음 데이터가 어떻게 될지 신경쓰자. 예를들어 정답이면 다음 문제를 내게 -->

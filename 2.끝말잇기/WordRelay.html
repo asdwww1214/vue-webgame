@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>끝말잇기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <word-relay start-word="키보드"></word-relay> <!-- 컴포넌트를 쓰는 쪽에서 startWord를 넣어줌. -->
+        <word-relay start-word="마우스"></word-relay>
+        <word-relay start-word="모니터"></word-relay>
+    </div>
+    <script>
+        Vue.component('wordRelay', { // 전역 컴포넌트 //컴포넌트의 템플릿은 아래와 같이 항상 부모 태그로 묶어줘야됨. 예를들어 div, form, div태그가 동등한 위치에 있으면 안됨
+            template: `
+                <div>
+                    <div>{{word}}</div>
+                        <form v-on:submit="onSubmitForm">
+                            <input type="text" ref="answer" v-model="value">
+                            <button type="submit">입력!</button>
+                        </form>
+                    <div>{{result}}</div>
+                </div>
+            `,
+            props: ['startWord'], //컴포넌트를 정의하는 쪽에서는 나는 startWord를 받겠다.
+            data() { <!-- component에서 data는 data객체를 돌려주는 함수의 형태로 만들어야함. 새로운 객체를 만들어서 return하는 method임. -->
+                <!-- 컴포넌트 안의 데이터는 각 word-ralay마다 다르다. -->
+                console.log(this);
+               return {
+                   word: this.startWord,
+                   result: '',
+                   value: '',
+               };
+            },
+            methods:{
+                onSubmitForm(e) {
+                    e.preventDefault(); <!-- 새로고침 막음 -->
+                    if (this.word[this.word.length - 1] === this.value[0]) {
+                        this.result = '정답';
+                        this.word = this.value;
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    }else {
+                        this.result = '오답';
+                        this.value = '';
+                        this.$refs.answer.focus();
+                    }
+                },
+            }
+
+        })
+    </script>
+    <script>
+        const app = new Vue({ <!-- vue에 태그 통제권을 넘김 --> <!-- new Vue는 vue인스턴스다 -->
+            el: '#root', //vue가 통제할 div태그 명시
+        });
+    </script>
+</body>
+</html>
+<!-- 화면은 처음 만들어놓고 두고 데이터 중심으로 사고 -->
+<!-- component: 중복을 피하고 재사용 하기 위해서 사용. props: 달라지는 부분들을 props로 넣어준다, 그리고 어떤 props를 쓸지는 템플릿 안에 props: [''] -->
+<!-- Vue의 html에서는 kebab-case. js에서는 camelCase. -->

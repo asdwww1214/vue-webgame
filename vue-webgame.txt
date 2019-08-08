@@ -1,0 +1,12 @@
+
+
+
+	# message
+	# 안녕하세요, front-end-beginner 이성수입니다.
+
+	# vue.js 프레임워크 공부를 위해 
+	# ZeroCho님의 Youtube 강의를 보며 따라해 보고 있습니다.
+	# 강의 림크: https://www.youtube.com/watch?v=TIHluPn05VY&list=PLcqDmjxt30RsdnPeU0ogHFMoggSQ_d7ao
+
+	# Contact	
+	# E-mail: tjdtjdtn1214@naver.com

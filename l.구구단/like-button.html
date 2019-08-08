@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>좋아요</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root"> <!-- 이 id=root를 vue가 통제하고있다 -->
+        <div v-if="liked">좋아요 눌렀음</div> <!-- v- 이런것들 뒤의 " "안의 이것은 data나 methods들에 접근 가능하다. v가 붙은 것들은 vue가 통제한다.-->
+        <!--<div>형제 사이를 끊어주지!</div>-->
+        <button v-else v-on:click="onClickButton">Like</button>
+        <!-- v-if와 v-else는 조건문. true이면 '좋아요 눌렀음' 이 표시되고 false이면 onClick 이벤트가 실행됨. v-if와 v-else같은 형제 코드들은 **인접**해 있어야 한다. -->
+    </div>
+</body>
+<script>
+    const app = new Vue({ <!--script로 메인 div를 vue의 컴포넌트 or 템플릿으로 전환가능하게 만들어줌-->
+        el: '#root', <!--Vue가 root를 톨제할수있게 만들어줌-->
+        data: {
+         liked: false, <!-- 처음에는 false. onClick 이벤트 이후에는 true가 됨. -->
+        },
+        methods: {
+            onClickButton() {
+             this.liked = true; <!-- this는 data를 가르킴. 그니까 this.liked 하면 data.liked랑 같음. liked속성을 false에서 trre로 바꿔줌 -->
+          },
+        },
+    });
+</script>
+</html>
+<!-- 회면은 vue가 알아서 바꿔주니까 우리는 **data**잘 괸리하고 methods 잘 만들고 하자 -- >
+!-- 변수명들은 맘대로 바꿔도 되는데 **el, data, methods**는 바꾸면 안됨. -- >
