@@ -10,3 +10,6 @@
 
 	# Contact	
 	# E-mail: tjdtjdtn1214@naver.com
+
+	# 추가로 변경된 사항
+	# Github 재미따
