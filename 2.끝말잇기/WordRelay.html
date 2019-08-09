@@ -40,7 +40,7 @@
                         this.result = '정답';
                         this.word = this.value;
                         this.value = '';
-                        this.$refs.answer.focus();
+                        this.$refs.answer.focus(); //마우스 클릭 없이도 바로 입력할 수 있게 해줌.
                     }else {
                         this.result = '오답';
                         this.value = '';
